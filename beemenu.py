@@ -1,11 +1,11 @@
 
-from PyQt6.QtWidgets import *
-from PyQt6.QtCore import *
+from PyQt6.QtWidgets import QApplication, QWidget, QListWidget, QVBoxLayout
+from PyQt6.QtCore import QSize
 from PyQt6 import QtGui
 from pathlib import Path
 import subprocess
 import sys
-app = QApplication(sys.argv)
+
 
 class Window(QWidget):
     def __init__(self):
@@ -19,6 +19,12 @@ class Window(QWidget):
         layout = QVBoxLayout()
         layout.addWidget(applistW)
         self.setLayout(layout)
+
+        def itemClicked():
+            print('Test')
+            #for item in self(command):
+                #print(command)
+                #subprocess.run(command)
 
         path1 = Path('/usr/share/applications')
         path2 = Path('~/.local/share/applications')
@@ -57,14 +63,11 @@ class Window(QWidget):
         #Each app name in namelist becomes an item in QListWidget
         applistW.addItems(namelist)
         applistW.itemClicked.connect(applistW.itemClicked)
-        print('- Apps added to QListWidget.')     
-
-        def itemClicked(self,item):
-            for item in self(command):
-                print(command)
-                subprocess.run(command)
-
-def main(): 
+        print('- Apps added to app list.')     
+        
+        
+def main():
+    app = QApplication(sys.argv)
     window = Window()
     window.show()
     sys.exit(app.exec())
