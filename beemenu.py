@@ -7,19 +7,19 @@ import subprocess
 import sys
 app = QApplication(sys.argv)
 
-class Window(QMainWindow):
+class Window(QWidget):
     def __init__(self):
         super().__init__()
         self.setFixedSize(QSize(250, 500))
-        layout = QVBoxLayout()
-        layout.setContentsMargins(0,0,0,0)
-        layout.setSpacing(20)
-        
+        self.initApplist()
 
-class Applist(Window):
-    def __init__(self):
-        super().__init__()
+    def initApplist(self):
+        self.show()
         applistW = QListWidget()
+        layout = QVBoxLayout()
+        layout.addWidget(applistW)
+        self.setLayout(layout)
+
         path1 = Path('/usr/share/applications')
         path2 = Path('~/.local/share/applications')
         #path1 = Path('test_dir/test1')
@@ -41,7 +41,8 @@ class Applist(Window):
             for line in filetext:
                 if line.startswith("Name="):
                     nameline = line
-                    appname = nameline.replace("Name=", "")
+                    appname_noName = nameline.replace("Name=", "")
+                    appname = appname_noName.replace("\n", "")
                     #Add it to the list
                     namelist.append(appname)
                     break
