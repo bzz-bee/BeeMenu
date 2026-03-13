@@ -18,10 +18,10 @@ class Window(QWidget):
         layout.addWidget(applistW)
         self.setLayout(layout)
 
-        #path1 = Path('/usr/share/applications')
-        #path2 = Path('~/.local/share/applications')
-        path1 = Path('test_dir/test1')
-        path2 = Path('test_dir/test2')
+        path1 = Path('/usr/share/applications')
+        path2 = Path('~/.local/share/applications')
+        #path1 = Path('test_dir/test1')
+        #path2 = Path('test_dir/test2')
         filelist = []
         namelist = []
         commandlist = []
@@ -41,8 +41,7 @@ class Window(QWidget):
             for line in filetext:
                 if line.startswith("Name="):
                     nameline = line
-                    noName = nameline.replace("Name=", "")
-                    appname = noName.replace("\n", "")
+                    appname = nameline.replace("Name=","").replace("\n","")
                     #Add it to the name list
                     namelist.append(appname)
                     break
@@ -51,29 +50,27 @@ class Window(QWidget):
             for line in filetext:
                 if line.startswith("Exec="):
                     execline = line
-                    noExec = execline.replace("Exec=", "")
-                    command = noExec.replace("\n", "")
+                    command = execline.replace("Exec=", "").replace(" %U","").replace(" %u","").replace(" %F","").replace(" %f","").replace("\n","")
                     #Add it to the command list
                     commandlist.append(command)
                     break
 
-        for index in range(len(namelist)):
-            Name = namelist[index]
-            Command = commandlist[index]
-            appdict[Name] = Command
+        #for index in range(len(namelist)):
+            #Name = namelist[index]
+            #Command = commandlist[index]
+            appdict[appname] = command
         print(appdict)
 
         namelist.sort() #Alphabetical
         #Each app name in namelist becomes an item in QListWidget
-        #Must be after 'for index in range'
+        #Must be after 'appdict[appname] = command'
         applistW.addItems(namelist)
         print('- Apps added to app list.')
 
         def onClick(item):
-            #prints the command for the last key...needs fix
-            valueCommand = appdict.get(item.text, Command)
+            valueCommand = appdict.get(item.text(), command)
             print(valueCommand)
-            #subprocess.run(valueCommand)
+            subprocess.run(valueCommand)
 
         applistW.itemClicked.connect(onClick)
         
