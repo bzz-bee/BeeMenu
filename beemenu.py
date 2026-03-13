@@ -20,10 +20,9 @@ class Window(QWidget):
         self.setLayout(layout)
 
         def onClick():
-                print('Test')
-                #for item in self(command):
-                    #print(command)
-                    #subprocess.run(command)
+            #for something?
+                print(command)
+                subprocess.run(command)
 
         path1 = Path('/usr/share/applications')
         path2 = Path('~/.local/share/applications')
@@ -46,16 +45,18 @@ class Window(QWidget):
             for line in filetext:
                 if line.startswith("Name="):
                     nameline = line
-                    appname_noName = nameline.replace("Name=", "")
-                    appname = appname_noName.replace("\n", "")
+                    noName = nameline.replace("Name=", "")
+                    appname = noName.replace("\n", "")
                     #Add it to the list
                     namelist.append(appname)
                     break
+
             #Get the app's exec command
             for line in filetext:
                 if line.startswith("Exec="):
                     execline = line
-                    command = execline.replace("Exec=", "")
+                    noExec = execline.replace("Exec=", "")
+                    command = noExec.replace("\n", "")
                     break
 
         namelist.sort() #Alphabetical
