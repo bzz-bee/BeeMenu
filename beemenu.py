@@ -90,27 +90,13 @@ class Window(QFrame):
         icon3 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.SystemLogOut))
         self.LogOutB.setIcon(icon3)
 
-### Translate
-        self.retranslateUi(Window)
-        QMetaObject.connectSlotsByName(self)
-
-    def retranslateUi(self, Window):
-        self.SearchBar.setPlaceholderText(QCoreApplication.translate("Window", u"Search...", None))
-        self.ShutDownB.setText(QCoreApplication.translate("Window", u"Shut Down", None))
-        self.RebootB.setText(QCoreApplication.translate("Window", u"Reboot", None))
-        self.SleepB.setText(QCoreApplication.translate("Window", u"Sleep", None))
-        self.LogOutB.setText(QCoreApplication.translate("Window", u"Log Out", None))
-        pass
-
-
 ### Functions
 
     ### App List
     def initAppList(self):
         #   BeeMenu will show apps from these paths:
         path1 = Path('/usr/share/applications')
-        path2 = Path('/home/julius/.local/share/applications')
-        #path1 = Path('/home/julius/Code/BeeMenu/applications')
+        path2 = Path.home() / "BeeMenu/applications"
         #Why doesn't "~/" or "$HOME/" work??
         filelist = []
         namelist = []
@@ -162,12 +148,40 @@ class Window(QFrame):
 
         self.AppList.itemClicked.connect(onClick)
 
+    ### Search Bar
+    def initSearchBar(self):
+        self.SearchBar.textChanged.connect(self.filter)
+    def filter(self, text):
+        for i in range(self.AppList.count()):
+            item = self.AppList.item(i)
+            if text.lower() == "" or item.text().lower().startswith(text.lower()):
+                item.setHidden(False)
+            else:
+                item.setHidden(True)
+
+    def initButtons(self):
+        pass
+
+
+
+### Translate
+        self.retranslateUi(Window)
+        QMetaObject.connectSlotsByName(self)
+
+    def retranslateUi(self, Window):
+        self.SearchBar.setPlaceholderText(QCoreApplication.translate("Window", u"Search...", None))
+        self.ShutDownB.setText(QCoreApplication.translate("Window", u"Shut Down", None))
+        self.RebootB.setText(QCoreApplication.translate("Window", u"Reboot", None))
+        self.SleepB.setText(QCoreApplication.translate("Window", u"Sleep", None))
+        self.LogOutB.setText(QCoreApplication.translate("Window", u"Log Out", None))
+        pass
 
 def main():
     app = QApplication(sys.argv)
     window = Window()
     window.show()
     window.initAppList()
+    window.initSearchBar()
     sys.exit(app.exec())
 if __name__ == '__main__':
     main()
