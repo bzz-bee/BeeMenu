@@ -10,7 +10,7 @@ from pathlib import Path
 import subprocess
 import sys
 
-### UI (Qt Designer)
+###    UI (Qt Designer)    ###
 class Window(QFrame):
     def __init__(self):
         super().__init__()
@@ -62,37 +62,37 @@ class Window(QFrame):
         self.RightSide.setLineWidth(2)
         self.RightSide.setMidLineWidth(2)
 
-    ### Shut Down Button
-        self.ShutDownB = QCommandLinkButton(self.RightSide)
-        self.ShutDownB.setObjectName(u"ShutDownB")
-        self.ShutDownB.setGeometry(QRect(0, 456, 102, 28))
+    ### Power Off Button
+        self.PowerOffB = QPushButton(text="Power Off",parent=self.RightSide)
+        self.PowerOffB.setObjectName(u"PowerOffB")
+        self.PowerOffB.setGeometry(QRect(0, 456, 102, 28))
         icon = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.SystemShutdown))
-        self.ShutDownB.setIcon(icon)
+        self.PowerOffB.setIcon(icon)
 
     ### Reboot Button
-        self.RebootB = QCommandLinkButton(self.RightSide)
+        self.RebootB = QPushButton(text="Reboot",parent=self.RightSide)
         self.RebootB.setObjectName(u"RebootB")
         self.RebootB.setGeometry(QRect(0, 428, 102, 28))
         icon1 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.SystemReboot))
         self.RebootB.setIcon(icon1)
 
-    ### Sleep Button
-        self.SleepB = QCommandLinkButton(self.RightSide)
-        self.SleepB.setObjectName(u"SleepB")
-        self.SleepB.setGeometry(QRect(0, 400, 102, 28))
+    ### Suspend Button
+        self.SuspendB = QPushButton(text="Suspend",parent=self.RightSide)
+        self.SuspendB.setObjectName(u"SuspendB")
+        self.SuspendB.setGeometry(QRect(0, 400, 102, 28))
         icon2 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.SystemLockScreen))
-        self.SleepB.setIcon(icon2)
+        self.SuspendB.setIcon(icon2)
 
     ### Log Out Button
-        self.LogOutB = QCommandLinkButton(self.RightSide)
+        self.LogOutB = QPushButton(text="Log Out",parent=self.RightSide)
         self.LogOutB.setObjectName(u"LogOutB")
         self.LogOutB.setGeometry(QRect(0, 372, 102, 28))
         icon3 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.SystemLogOut))
         self.LogOutB.setIcon(icon3)
 
-### Functions
+###   Functions    ###
 
-    ### App List
+### App List
     def initAppList(self):
         #   BeeMenu will show apps from these paths:
         path1 = Path('/usr/share/applications')
@@ -148,7 +148,7 @@ class Window(QFrame):
 
         self.AppList.itemClicked.connect(onClick)
 
-    ### Search Bar
+### Search Bar
     def initSearchBar(self):
         self.SearchBar.textChanged.connect(self.filter)
     def filter(self, text):
@@ -158,17 +158,32 @@ class Window(QFrame):
                 item.setHidden(False)
             else:
                 item.setHidden(True)
-
+    
+### Buttons
     def initButtons(self):
-        pass
 
+        def poweroff(self):
+            subprocess.call('sudo poweroff',shell=True)
+        
+        def reboot(self):
+            subprocess.call('sudo reboot',shell=True)
+       
+        def suspend(self):
+            subprocess.call('sudo systemctl suspend',shell=True)
+        
+        def logout(self):
+            subprocess.call('logout',shell=True)
+
+        self.PowerOffB.clicked.connect(poweroff)
+        self.RebootB.clicked.connect(reboot)
+        self.SuspendB.clicked.connect(suspend)
+        self.LogOutB.clicked.connect(logout)
 
 
 ### Translate
+    def retranslateUi(self, Window):
         self.retranslateUi(Window)
         QMetaObject.connectSlotsByName(self)
-
-    def retranslateUi(self, Window):
         self.SearchBar.setPlaceholderText(QCoreApplication.translate("Window", u"Search...", None))
         self.ShutDownB.setText(QCoreApplication.translate("Window", u"Shut Down", None))
         self.RebootB.setText(QCoreApplication.translate("Window", u"Reboot", None))
@@ -182,6 +197,7 @@ def main():
     window.show()
     window.initAppList()
     window.initSearchBar()
+    window.initButtons()
     sys.exit(app.exec())
 if __name__ == '__main__':
     main()
