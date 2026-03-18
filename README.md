@@ -1,8 +1,8 @@
-# BeeMenu
+# Bee Menu
 ## An app launcher for Hyprland, inspired by the Windows 7/Vista Start Menu.
 - Coded in Python + Qt
 - Easily modify the UI style
-- Still in testing & development!
+- Currently in alpha
 ### Planned features:
 - Gradients and color
 - Icons
