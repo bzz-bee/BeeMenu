@@ -3,11 +3,13 @@
 #   Modify as you wish
 #       Modified by: 
 
+from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
-from PyQt6.QtWidgets import *
 from pathlib import Path
 import subprocess
+import pexpect
+import getpass
 import sys
 
 ###    UI (Qt Designer)    ###
@@ -96,7 +98,7 @@ class Window(QFrame):
     def initAppList(self):
         #   BeeMenu will show apps from these paths:
         path1 = Path('/usr/share/applications')
-        path2 = Path.home() / "BeeMenu/applications"
+        path2 = Path.home() / 'BeeMenu/applications'
         #Why doesn't "~/" or "$HOME/" work??
         filelist = []
         namelist = []
@@ -161,19 +163,22 @@ class Window(QFrame):
     
 ### Buttons
     def initButtons(self):
-
         def poweroff(self):
-            subprocess.call('sudo poweroff',shell=True)
-        
+            subprocess.Popen(['alacritty','--hold','-e','sudo','poweroff'])
+            self.close()
+            
         def reboot(self):
-            subprocess.call('sudo reboot',shell=True)
-       
+            subprocess.Popen(['alacritty','--hold','-e','sudo','reboot'])
+            self.close()
+            
         def suspend(self):
-            subprocess.call('sudo systemctl suspend',shell=True)
-        
-        def logout(self):
-            subprocess.call('logout',shell=True)
+            subprocess.Popen(['alacritty','--hold','-e','sudo','systemctl','suspend'])
+            self.close()
 
+        def logout(self):
+            subprocess.Popen(['alacritty','--hold','-e','hyprctl','dispatch','exit'])
+            self.close()
+            
         self.PowerOffB.clicked.connect(poweroff)
         self.RebootB.clicked.connect(reboot)
         self.SuspendB.clicked.connect(suspend)
