@@ -13,5 +13,5 @@
 - Mini file explorer (Documents, Pictures, Music, etc.)
 ## Installation
 All you have to do is clone this repo. To launch, run `python3 ~/BeeMenu/beemenu.py` (an alias will be added soon).
-### Add to your hyprland.conf:
+#### Add to your hyprland.conf:
 $menu = command python3 ~/BeeMenu/beemenu.py
