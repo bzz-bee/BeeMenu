@@ -92,9 +92,6 @@ class Window(QWidget):
 
 # # # #    Functions    # # # # 
 
-### Window
-    
-
 ### App List
     def initAppList(self):
         # BeeMenu will show apps from these paths:
@@ -200,7 +197,7 @@ class Window(QWidget):
 def main():
     app = QApplication(sys.argv)
     window = Window()
-    # css theme file path. Replace 'default' with your chosen theme
+    # .qss file path. Replace with your chosen theme.
     themePath = Path.home() / 'BeeMenu/Themes/dark-gray-opaque.qss'
     with open(themePath,'r') as file:
         app.setStyleSheet(file.read())
