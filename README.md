@@ -4,7 +4,7 @@
 - Easily modify the UI style
 - Currently in alpha
 
-<img width="350" height="500" alt="Bee Menu with dark gray opaque theme" src="https://github.com/user-attachments/assets/90be5964-ebb7-481a-840d-d912beaf3b29" />
+<img width="350" height="500" alt="image" src="https://github.com/user-attachments/assets/7c5fde2b-a9bd-41fd-b5ff-ae88bbfdbfff" />
 
 ### Planned features:
 - Gradients and color
