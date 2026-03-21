@@ -3,6 +3,9 @@
 - Coded in Python + Qt
 - Easily modify the UI style
 - Currently in alpha
+
+<img width="350" height="500" alt="Bee Menu with dark gray opaque theme" src="https://github.com/user-attachments/assets/90be5964-ebb7-481a-840d-d912beaf3b29" />
+
 ### Planned features:
 - Gradients and color
 - Icons
