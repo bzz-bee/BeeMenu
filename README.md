@@ -7,6 +7,7 @@
 <img width="350" height="500" alt="image" src="https://github.com/user-attachments/assets/7c5fde2b-a9bd-41fd-b5ff-ae88bbfdbfff" />
 
 ### Planned features:
+- Window positioning
 - More themes
 - Icons
 - Mini file explorer (Documents, Pictures, Music, etc.)
