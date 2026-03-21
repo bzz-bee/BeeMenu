@@ -1,0 +1,52 @@
+QFrame#Background{
+    background: qlineargradient( x1:0 y1:0, x2:0 y2:1
+        stop:0 rgba(40,40,40,1), 
+        stop:.5 rgba(10,10,10,1),
+        stop: 1 rgba(40,40,40,1)
+        );
+    border: 2px solid rgba(20,20,20,1);
+    border-radius: 3%;
+}
+
+QListWidget#AppList{
+    background-color: rgba(20,20,20,1);
+    border: 1px solid rgba(60,60,60,1);
+    border-radius: 2%;
+    color:rgba(200,200,200,1);
+}
+
+QScrollBar{
+    width: 8px;
+    background: rgba(20,20,20,1);
+    border: 1px solid rgba(40,40,40,1);
+}
+
+QScrollBar::handle{
+    background: rgba(35,35,35,1);
+    border: 1px solid rgba(50,50,50,1);
+    border-right: 0px;
+    border-left: 0px;
+}
+
+QScrollBar::add-line, QScrollBar::sub-line{
+    background: rgba(35,35,36,1);
+    border: 1px solid rgba(50,50,50,1);
+}
+
+QLineEdit#SearchBar{
+    background-color: rgba(20,20,20,1);
+    border: 1px solid rgba(60,60,60,1);
+    border-radius: 2%;
+    color:rgba(150,150,150,1);
+}
+
+QPushButton{
+    background: qlineargradient( x1:0 y1:0, x2:0 y2:1
+        stop:0 rgba(40,40,40,1), 
+        stop:.5 rgba(10,10,10,1),
+        stop: 1 rgba(40,40,40,1)
+        );
+    border: 1px solid rgba(60,60,60,1);
+    border-radius: 2%;
+    color:rgba(200,200,200,1);
+}
